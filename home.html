@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Master Events</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div class="center-wrap">
+    <div style="text-align:center;">
+        <h1 style="margin-bottom:6px;">Master Events</h1>
+        <p style="color:#6b7280; margin-top:0; margin-bottom:28px;">Choose how you'd like to sign in</p>
+        <div class="choice-grid">
+            <a class="choice-card" th:href="@{/admin/login}">
+                <div class="icon">🛠️</div>
+                <strong>Admin Login</strong>
+                <p style="color:#6b7280; font-size:0.85rem;">Manage events &amp; view attendees</p>
+            </a>
+            <a class="choice-card" th:href="@{/user/login}">
+                <div class="icon">👤</div>
+                <strong>User Login</strong>
+                <p style="color:#6b7280; font-size:0.85rem;">Join &amp; attend events</p>
+            </a>
+        </div>
+    </div>
+</div>
+</body>
+</html>

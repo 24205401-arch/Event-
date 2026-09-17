@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Joined Users</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div class="topbar">
+    <h1>Joined Users &middot; <span th:text="${event.title}"></span></h1>
+    <a class="logout" th:href="@{/logout}">Log out</a>
+</div>
+
+<div class="wrap">
+    <a class="back-link" th:href="@{/admin/dashboard}">&larr; Back to dashboard</a>
+
+    <p th:if="${event.createdByName != null}" class="creator-line" style="margin-top:-8px; margin-bottom:16px;">
+        Created by <span th:text="${event.createdByName}"></span>
+        (<span th:text="${event.createdByUserId}"></span>)
+    </p>
+
+    <a class="btn secondary" th:href="@{/admin/events/{id}/export(id=${event.id})}"
+       style="display:inline-block; margin-bottom:16px;">Export Attendees (ZIP)</a>
+
+    <div th:if="${#lists.isEmpty(registrations)}" style="color:#6b7280;">
+        No one has joined this event yet.
+    </div>
+
+    <table th:if="${!#lists.isEmpty(registrations)}">
+        <thead>
+        <tr>
+            <th>User ID</th>
+            <th>Full Name</th>
+            <th>Joined At</th>
+            <th>Status</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="reg : ${registrations}">
+            <td th:text="${reg.user.userId}"></td>
+            <td th:text="${reg.user.fullName}"></td>
+            <td th:text="${#temporals.format(reg.joinedAt, 'dd MMM yyyy, HH:mm')}"></td>
+            <td>
+                <span class="badge attended" th:if="${reg.attended}">Attended</span>
+                <span class="badge pending" th:unless="${reg.attended}">Joined only</span>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

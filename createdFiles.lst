@@ -1,0 +1,13 @@
+com\eventapp\controller\UserEventController.class
+com\eventapp\model\EventRegistration.class
+com\eventapp\repository\UserRepository.class
+com\eventapp\EventAttendanceApplication.class
+com\eventapp\repository\EventRegistrationRepository.class
+com\eventapp\service\UserService.class
+com\eventapp\service\EventService.class
+com\eventapp\model\EventItem.class
+com\eventapp\controller\AdminController.class
+com\eventapp\controller\AuthController.class
+com\eventapp\model\User.class
+com\eventapp\repository\EventRepository.class
+com\eventapp\config\DataSeeder.class

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Events</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div class="topbar">
+    <h1>Master Events &middot; <span th:text="${currentUser.fullName}"></span></h1>
+    <a class="logout" th:href="@{/logout}">Log out</a>
+</div>
+
+<div class="wrap">
+    <div class="error-msg" th:if="${error}" th:text="${error}"></div>
+
+    <div class="section-title">Available Events</div>
+
+    <div th:if="${#lists.isEmpty(events)}" style="color:#6b7280;">
+        No events have been posted yet. Check back later.
+    </div>
+
+    <div class="event-card" th:each="ev : ${events}">
+        <div class="info">
+            <h3 th:text="${ev.title}"></h3>
+            <p th:text="${ev.description}"></p>
+            <p>📍 <span th:text="${ev.venue}"></span> &nbsp;|&nbsp; 📅 <span th:text="${ev.eventDate}"></span>
+                <span th:if="${ev.startTime != null and !ev.startTime.isEmpty()}">
+                    &nbsp;|&nbsp; ⏰ <span th:text="${ev.startTime}"></span>
+                    <span th:if="${ev.endTime != null and !ev.endTime.isEmpty()}"> - <span th:text="${ev.endTime}"></span></span>
+                </span>
+            </p>
+
+            <span class="badge joined" th:if="${joinedEventIds.contains(ev.id)}">Joined</span>
+            <span class="badge attended" th:if="${attendedEventIds.contains(ev.id)}">Attended</span>
+        </div>
+        <div class="actions">
+            <form th:if="${!joinedEventIds.contains(ev.id)}"
+                  th:action="@{/user/events/{id}/join(id=${ev.id})}" method="post">
+                <button type="submit">Join Event</button>
+            </form>
+
+            <form th:if="${joinedEventIds.contains(ev.id) and !attendedEventIds.contains(ev.id)}"
+                  th:action="@{/user/events/{id}/attend(id=${ev.id})}" method="post">
+                <button type="submit" class="secondary">Mark Attended</button>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>
